@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app/screens/home_screen.dart';
+import 'package:weather_app/weather_bloc/weather_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +19,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: BlocProvider<WeatherBloc>(
+        create: (context) => WeatherBloc()..add(FetchWeather()),
+        child: HomeScreen(),
+      ),
     );
   }
 }
