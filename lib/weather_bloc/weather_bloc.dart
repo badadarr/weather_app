@@ -19,12 +19,9 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
         WeatherFactory wf =
             new WeatherFactory(MY_API_KEY, language: Language.ENGLISH);
 
-        // When we reach here, we have the permission to access the location.
-        // continue accessing the position of the device
-        Position position = await Geolocator.getCurrentPosition();
         Weather weather = await wf.currentWeatherByLocation(
-            position.latitude, position.longitude);
-        print(weather.areaName);
+            event.position.latitude, event.position.longitude);
+        print(weather);
         emit(WeatherBlocSuccess(weather));
       } catch (e) {
         emit(WeatherBlocFailure());
